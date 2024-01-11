@@ -1,0 +1,103 @@
+.header__container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    padding: 20px 0px;
+}
+
+.header {
+    background-color: rgba(255, 255, 255, 0.8);
+    position: sticky;
+    top: 0px;
+
+    z-index: 10;
+}
+
+.container__name {
+    color: #1C2A39;
+    font-family: Montserrat;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.container__icons {
+    width: 120px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.icons:hover {
+    cursor: pointer;
+}
+
+#icon_shopbag_cont {
+    position: relative;
+}
+
+#icon_circle {
+    position: absolute;
+    top: 9px;
+    right: -4px;
+
+    display: none;
+}
+
+#icon_circle::after {
+    content: var(--bugcontent);
+    color: #fff;
+    font-family: Montserrat;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: capitalize;
+
+    position: absolute;
+    top: 2px;
+}
+
+#icon_circle.icon_circle_active {
+    display: block;
+}
+
+.icons_circle_1::after {
+    right: 5px;
+}
+
+.icons_circle_10::after {
+    right: 3px;
+}
+
+.container__links {
+    width: 372px;
+}
+
+.links__link {
+    list-style-type: none;
+}
+
+#links {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.links__link > a {
+    color: var(--text-gray, #5C6A79);
+    font-family: Montserrat;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+
+    text-decoration: none;
+}
+
+.links__link_active > a {
+    color: var(--text-black, #1C2A39);
+    font-weight: 900;
+}

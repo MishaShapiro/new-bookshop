@@ -1,9 +1,9 @@
 import Layout from '../../components/Layout'
 
-export default function Home() {
+export default function Audiobooks() {
   return (
     <Layout>
-      Hi
+      Audio
     </Layout>
   )
 }
