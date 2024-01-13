@@ -1,3 +1,21 @@
 .slide_container {
     width: 600px;
 }
+
+.swiper {
+    margin: 20px 0px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.slides {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.points {
+    display: flex;
+    width: 100px;
+    justify-content: space-around;
+}

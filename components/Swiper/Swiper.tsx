@@ -33,10 +33,23 @@ function Swiper({timeout = 1000, children = {}}) {
 
     return (
         <div className={styles.swiper}>
-            <>{Children.map(children, (child, i) => i === currentSlide && child)}</>
-            <button onClick={() => {moveToPrevSlide()}}>Prev</button>
-            <button onClick={() => {moveToNextSlide()}}>Next</button>
-            <>{Children.map(children, (child, i) => {return <button onClick={() => {setCurrentSlide(i)}}>{i}</button>})}</>
+            <div className={styles.slides}>
+                <button onClick={() => {moveToPrevSlide()}}>
+                    <img src="/svg/arrow-left.svg" alt="arrow-left.svg"/>
+                </button>
+                <>{Children.map(children, (child, i) => i === currentSlide && child)}</>
+                <button onClick={() => {moveToNextSlide()}}>
+                    <img src="/svg/arrow-right.svg" alt="arrow-right.svg"/>
+                </button>
+            </div>
+            <div className={styles.points}>
+                {Children.map(children, (child, i) => {
+                return (
+                    <button onClick={() => {setCurrentSlide(i)}}>
+                        {currentSlide === i ? <img src="/svg/point_active.svg" alt="point.svg"/> : <img src="/svg/point.svg" alt="point.svg"/>}
+                    </button>
+                )})}
+            </div>
         </div>
     )
 }

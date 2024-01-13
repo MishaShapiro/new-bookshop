@@ -15,10 +15,10 @@ export default function Home() {
   return (
     <Layout>
       <main>
-        <Swiper timeout={3000}>
-          <Slide text={"First slide"} url='/images/banner.png'/>
-          <Slide text={"Seconde slide"} url='/images/banner 2.png'/>
-          <Slide text={"Third slide"} url='/images/banner 3.png'/>
+        <Swiper timeout={4000}>
+          <Slide url='/images/banner.png'/>
+          <Slide url='/images/banner 2.png'/>
+          <Slide url='/images/banner 3.png'/>
         </Swiper>
         <div className={styles.books}>
             <nav className={styles.books__nav}>
