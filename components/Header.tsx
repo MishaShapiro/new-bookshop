@@ -1,7 +1,9 @@
 import Link from "next/link"
 import styles from "./Header.module.css"
+import { useRouter } from "next/router"
 
 function Header() {
+    const pathname = useRouter().pathname
     return (
         <header className={styles.header}>
             <div className={styles.header__container}>
@@ -10,10 +12,10 @@ function Header() {
                 </p>
                 <nav className={styles.container__links}>
                     <ul id={styles.links}>
-                        <li className={`${styles.links__link} ${styles.links__link_active}`}><Link href={"/"}>books</Link></li>
-                        <li className={styles.links__link}><Link href={"/audiobooks"}>audiobooks</Link></li>
-                        <li className={styles.links__link}><Link href={"/"}>Stationery & gifts</Link></li>
-                        <li className={styles.links__link}><Link href={"/"}>blog</Link></li>
+                        <li className={`${styles.links__link} ${pathname === "/" ? styles.links__link_active : ""}`}><Link href={"/"}>books</Link></li>
+                        <li className={`${styles.links__link} ${pathname === "/audiobooks" ? styles.links__link_active : ""}`}><Link href={"/audiobooks"}>audiobooks</Link></li>
+                        <li className={`${styles.links__link} ${pathname === "/" ? styles.links__link_active : ""}`}><Link href={"/"}>Stationery & gifts</Link></li>
+                        <li className={`${styles.links__link} ${pathname === "/" ? styles.links__link_active : ""}`}><Link href={"/"}>blog</Link></li>
                     </ul>
                 </nav>
                 <div className={styles.container__icons}>

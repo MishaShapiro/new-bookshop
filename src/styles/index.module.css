@@ -1,0 +1,54 @@
+.books__nav {
+    background: #EFEEF6;
+    width: 416px;
+    height: 710px;
+}
+
+.books__elements {
+    padding: 20px 89px 20px 158px;
+    width: 416px;
+}
+
+.books {
+    display: flex;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.books__container {
+    margin-left: -50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.standartbtn {
+    width: 176px;
+    height: 45px;
+    border: 1px solid #4C3DB2;
+    color: #4C3DB2;
+    background-color: #fff;
+
+    color: #4C3DB2;
+    font-family: Montserrat;
+    font-size: 8px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+.standartbtn:hover {
+    cursor: pointer;
+}
+
+.newloader {
+    display: flex;
+    justify-content: center ;
+}
+
+.container {
+    width: 100%;
+    max-width: 1024px;
+}

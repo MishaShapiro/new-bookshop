@@ -1,0 +1,32 @@
+.books__theam {
+    margin: 15px 0px;
+    color: var(--text-gray, #5C6A79);
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: capitalize;
+
+    list-style-type: none;
+
+    transition: 0.3s ease-in-out;
+}
+
+.books__theam:hover {
+    cursor: pointer;
+}
+
+.books__theam_active {
+    color: var(--text-black, #1C2A39);
+    font-size: 16px;
+    font-weight: 700;
+
+    position: relative;
+}
+
+.books__theam_active::before {
+    content: url("/svg/Ellipse.svg");
+    position: absolute;
+    left: -14px;
+}
