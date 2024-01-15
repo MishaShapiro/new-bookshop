@@ -1,0 +1,44 @@
+.container {
+    display: flex;
+}
+
+.image {
+    width: 100px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.info {
+    padding: 40px 25px;
+}
+
+.title {
+    color: var(--text-black, #1C2A39);
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.rating {
+    margin-top: 12px;
+    display: flex;
+}
+
+.author, .ratingcount {
+    color: var(--text-gray, #5C6A79);
+    font-family: Open Sans;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.author {
+    margin-top: 8px;
+    text-transform: capitalize;
+}
+
+.stars {
+    width: 60px;
+}

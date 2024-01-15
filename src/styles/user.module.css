@@ -1,0 +1,89 @@
+.container {
+    max-width: 1120px;
+    margin: 120px auto 0px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile_title {
+    color: var(--text-black, #1C2A39);
+    font-family: Montserrat;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+.info_img {
+    display: flex;
+}
+
+.info_title, .info_data {
+    color: #000;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.info_title {
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.info_data {
+    font-size: 24px;
+    margin-bottom: 25px;
+}
+
+.button {
+    margin-top: 16px;
+
+    width: 176px;
+    height: 45px;
+    border: 1px solid #4C3DB2;
+
+    color: #4C3DB2;
+    font-family: Montserrat;
+    font-size: 8px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+.button:hover {
+    background-color: #d5cefd4f;
+    transition: 0.5s ease-in-out;
+}
+
+.button:active {
+    background-color: #9f90f74f;
+    transition: 0.1s ease-in-out;
+}
+
+.about_me {
+    padding: 17px 28px;
+    width: 353px;
+    height: 345px;
+    background: #FFE0E2;
+    box-shadow: 10px 20px 15px rgba(99, 99, 99, 0.2);
+
+    text-align: center;
+}
+
+.about_me_text {
+    text-align: start;
+    margin-top: 29px;
+
+    color: #5C6A79;
+
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+
+}

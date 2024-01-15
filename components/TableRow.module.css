@@ -1,0 +1,22 @@
+.table {
+    display: grid;
+    gap: 3%;
+    grid-template-columns: 40% 20% 15% 15%;
+    margin-bottom: 65px;
+}
+
+.tableheading {
+    display: grid;
+    gap: 3%;
+    grid-template-columns: 40% 20% 15% 15%;
+    margin-bottom: 25px;
+    margin-top: 20px;
+
+    color: var(--text-gray, #5C6A79);
+    font-family: Montserrat;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+}
