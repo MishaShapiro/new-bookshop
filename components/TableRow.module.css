@@ -3,6 +3,7 @@
     gap: 3%;
     grid-template-columns: 40% 20% 15% 15%;
     margin-bottom: 65px;
+    align-items: center;
 }
 
 .tableheading {

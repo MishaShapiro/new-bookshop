@@ -39,4 +39,11 @@
 
 .standartbtn:hover {
   cursor: pointer;
+  background-color: #c0b6ff4f;
+  transition: 0.5s ease-in-out;
+}
+
+.standartbtn:active {
+  background-color: #a091ff4f;
+  transition: 0.1s ease-in-out;
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Book from '../../components/Book'
 import Layout from '../../components/Layout'
 import Theam from '../../components/Theam'
@@ -11,6 +11,16 @@ const theams = ["Architecture", "Art & Fashion", "Biography", "Business", "Craft
 export default function Home() {
 
   const [theam, setTheam] = useState(theams[0])
+
+  useEffect(() => {
+    fetch("/api/books", {
+      method: 'POST',
+      body: JSON.stringify({subject: "Architect", page: 6})
+    })
+    .then((data) => {return data.json()})
+    .then((data) => {console.log(data)})
+    .catch((res) => {console.log(res)})
+  }, [])
 
   return (
     <Layout>
