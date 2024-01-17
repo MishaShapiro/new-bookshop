@@ -34,6 +34,9 @@ function Header() {
                         <Link href={"/user"}>
                             <img src="/svg/user.svg" alt="user.svg" />
                         </Link>
+                        <div className={styles.loginWindow}>
+                            Login
+                        </div>
                     </div>
                     <div id={styles.icon_search} className={styles.icons}>
                         <img src="/svg/search.svg" alt="search.svg" />

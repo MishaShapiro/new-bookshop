@@ -13,13 +13,16 @@ export default function Home() {
   const [theam, setTheam] = useState(theams[0])
 
   useEffect(() => {
-    fetch("/api/books", {
+    fetch("/api/books?" + new URLSearchParams({
+      subject: "Architect", 
+      page: "6",
+    }), 
+    {
       method: 'POST',
-      body: JSON.stringify({subject: "Architect", page: 6})
     })
     .then((data) => {return data.json()})
     .then((data) => {console.log(data)})
-    .catch((res) => {console.log(res)})
+    .catch((res) => {console.log("error", res)})
   }, [])
 
   return (

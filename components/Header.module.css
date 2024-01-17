@@ -111,3 +111,13 @@
 .links__link_active {
     pointer-events: none;
 }
+
+.icon_user {
+    position: relative;
+}
+
+.loginWindow {
+    position: absolute;
+    top: 0px;
+    background-color: red;
+}
