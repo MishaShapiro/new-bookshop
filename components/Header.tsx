@@ -1,10 +1,14 @@
 import Link from "next/link"
 import styles from "./Header.module.css"
 import { useRouter } from "next/router"
+import { useState } from "react"
 
 function Header() {
 
     const pathname = useRouter().pathname
+
+    const [email, setEmail] = useState("")
+    const [pass, setPass] = useState("")
 
     console.log(pathname)
     return (
@@ -30,12 +34,18 @@ function Header() {
                     </ul>
                 </nav>
                 <div className={styles.container__icons}>
-                    <div  id={styles.icon_user} className={styles.icons}>
+                    <div id={styles.icon_user} className={styles.icons}>
                         <Link href={"/user"}>
                             <img src="/svg/user.svg" alt="user.svg" />
                         </Link>
                         <div className={styles.loginWindow}>
-                            Login
+                            <h3 className={styles.loginHeading}>Login</h3>
+                            <p className={styles.loginText}>Email</p>
+                            <input value={email} onChange={(e) => {setEmail(e.target.value)}} className={styles.loginInput} type="text" />
+                            <p className={styles.loginText}>Password</p>
+                            <input value={pass} onChange={(e) => {setPass(e.target.value)}} className={styles.loginInput} type="password" />
+                            <p className={styles.errMess}>Your password must be at least 6 characters long</p>
+                            <button className={styles.loginBtn}>Log in</button>
                         </div>
                     </div>
                     <div id={styles.icon_search} className={styles.icons}>

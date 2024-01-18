@@ -12,9 +12,28 @@ export default function Home() {
 
   const [theam, setTheam] = useState(theams[0])
 
+  const Values : any = {
+    "Architecture": "subject:Architecture",
+    "Art & Fashion": "subject:Art",
+    "Biography": "subject:Biography & Autobiography",
+    "Business": "subject:Business",
+    "Crafts & Hobbies": "subject:Crafts & Hobbies",
+    "Drama": "subject:Drama",
+    "Fiction": "subject:Fiction",
+    "Food & Drink": "subject:Cooking",
+    "Health & Wellbeing": "subject:Health & Fitness",
+    "History & Politics": "subject:History",
+    "Humor": "subject:Humor",
+    "Poetry": "subject:Poetry",
+    "Psychology": "subject:Psychology",
+    "Science": "subject:Science",
+    "Technology": "subject:Technology",
+    "Travel & Maps": "subject:Travel",
+  }
+
   useEffect(() => {
     fetch("/api/books?" + new URLSearchParams({
-      subject: "Architect", 
+      subject: Values[theam], 
       page: "6",
     }), 
     {
@@ -23,7 +42,7 @@ export default function Home() {
     .then((data) => {return data.json()})
     .then((data) => {console.log(data)})
     .catch((res) => {console.log("error", res)})
-  }, [])
+  }, [theam])
 
   return (
     <Layout>
