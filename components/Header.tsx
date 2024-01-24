@@ -1,18 +1,65 @@
 import Link from "next/link"
 import styles from "./Header.module.css"
 import { useRouter } from "next/router"
-import { useState } from "react"
+import { DOMElement, useEffect, useRef, useState } from "react"
+import { useDispatch } from "react-redux"
+import { setUser } from "@/redux/UserSlice"
+import store from "@/redux/store"
 
 function Header() {
 
+    const dispatch = useDispatch()
+
+    const router = useRouter()
     const pathname = useRouter().pathname
 
     const [email, setEmail] = useState("")
     const [pass, setPass] = useState("")
 
-    console.log(pathname)
+    const ref: React.RefObject<any> = useRef(null)
+    const [isOpen, setIsOpen] = useState(false)
+
+    useEffect(() => {
+        function clickOutside(e: MouseEvent) {
+            if (isOpen && ref.current && !ref.current.contains(e.target)) {
+                setIsOpen(false)
+            }
+        }
+
+        document.addEventListener("mousedown", clickOutside)
+        return () => {document.removeEventListener("mousedown", clickOutside)}
+    }, [isOpen])
+
+    const [isCorrect, setIsCorrect] = useState(true)
+
+    function sendAuthFetch(email = "", pass = "") {
+        fetch("/api/auth", {
+            method: "POST",
+            body: JSON.stringify({
+                email: email,
+                password: pass,
+            })
+        })
+        .then((res) => {return res.json()})
+        .then((res) => {
+            if (res.success) {
+                dispatch(setUser({
+                    mail: email,
+                    pass: pass,
+                }))
+                router.push("/user")
+            } else {
+                setIsCorrect(false)
+            }
+        })
+        .catch((res) => {
+            console.log(res)
+        })
+    }
+
     return (
         <header className={styles.header}>
+            <button onClick={()=> {console.log(store.getState())}}>Click</button>
             <div className={styles.header__container}>
                 <p className={styles.container__name}>
                     Bookshop
@@ -34,19 +81,22 @@ function Header() {
                     </ul>
                 </nav>
                 <div className={styles.container__icons}>
-                    <div id={styles.icon_user} className={styles.icons}>
-                        <Link href={"/user"}>
-                            <img src="/svg/user.svg" alt="user.svg" />
-                        </Link>
-                        <div className={styles.loginWindow}>
-                            <h3 className={styles.loginHeading}>Login</h3>
-                            <p className={styles.loginText}>Email</p>
-                            <input value={email} onChange={(e) => {setEmail(e.target.value)}} className={styles.loginInput} type="text" />
-                            <p className={styles.loginText}>Password</p>
-                            <input value={pass} onChange={(e) => {setPass(e.target.value)}} className={styles.loginInput} type="password" />
-                            <p className={styles.errMess}>Your password must be at least 6 characters long</p>
-                            <button className={styles.loginBtn}>Log in</button>
-                        </div>
+                    <div id={styles.icon_user} className={styles.icons} ref={ref}>
+                        {/* <Link href={"/user"}></Link> */}
+                        <img src="/svg/user.svg" alt="user.svg" onClick={() => {setIsOpen(!isOpen)}} />
+                        {isOpen ?
+                            <div className={styles.loginWindow}>
+                                <h3 className={styles.loginHeading}>Login</h3>
+                                <p className={styles.loginText}>Email</p>
+                                <input value={email} onChange={(e) => {setEmail(e.target.value)}} className={styles.loginInput} type="text" />
+                                <p className={styles.loginText}>Password</p>
+                                <input value={pass} onChange={(e) => {setPass(e.target.value)}} className={styles.loginInput} type="password" />
+                                {!isCorrect ? <p className={styles.errMess}>Your password must be at least 6 characters long</p> : <></>}
+                                <button className={styles.loginBtn} onClick={() => {sendAuthFetch(email, pass)}}>Log in</button>
+                            </div>
+                            :
+                            <></>
+                        }
                     </div>
                     <div id={styles.icon_search} className={styles.icons}>
                         <img src="/svg/search.svg" alt="search.svg" />

@@ -8,27 +8,38 @@ import Slide from '../../components/Swiper/Slide'
 
 const theams = ["Architecture", "Art & Fashion", "Biography", "Business", "Crafts & Hobbies", "Drama", "Fiction", "Food & Drink", "Health & Wellbeing", "History & Politics", "Humor", "Poetry", "Psychology", "Science", "Technology", "Travel & Maps"]
 
+interface BookType {
+  id: string,
+  authors: string,
+  title: string,
+  ratingsCount: string,
+  averageRating: string,
+  description: string,
+  price: string,
+}
+
 export default function Home() {
 
   const [theam, setTheam] = useState(theams[0])
-
+  const [booksData, setBooksData] = useState([])
+  
   const Values : any = {
-    "Architecture": "subject:Architecture",
-    "Art & Fashion": "subject:Art",
-    "Biography": "subject:Biography & Autobiography",
-    "Business": "subject:Business",
-    "Crafts & Hobbies": "subject:Crafts & Hobbies",
-    "Drama": "subject:Drama",
-    "Fiction": "subject:Fiction",
-    "Food & Drink": "subject:Cooking",
-    "Health & Wellbeing": "subject:Health & Fitness",
-    "History & Politics": "subject:History",
-    "Humor": "subject:Humor",
-    "Poetry": "subject:Poetry",
-    "Psychology": "subject:Psychology",
-    "Science": "subject:Science",
-    "Technology": "subject:Technology",
-    "Travel & Maps": "subject:Travel",
+    "Architecture": "Architecture",
+    "Art & Fashion": "Art",
+    "Biography": "Biography & Autobiography",
+    "Business": "Business",
+    "Crafts & Hobbies": "Crafts & Hobbies",
+    "Drama": "Drama",
+    "Fiction": "Fiction",
+    "Food & Drink": "Cooking",
+    "Health & Wellbeing": "Health & Fitness",
+    "History & Politics": "History",
+    "Humor": "Humor",
+    "Poetry": "Poetry",
+    "Psychology": "Psychology",
+    "Science": "Science",
+    "Technology": "Technology",
+    "Travel & Maps": "Travel",
   }
 
   useEffect(() => {
@@ -40,7 +51,10 @@ export default function Home() {
       method: 'POST',
     })
     .then((data) => {return data.json()})
-    .then((data) => {console.log(data)})
+    .then((data) => {
+      console.log(data)
+      setBooksData(data.data.items)
+    })
     .catch((res) => {console.log("error", res)})
   }, [theam])
 
@@ -63,8 +77,51 @@ export default function Home() {
             </nav>
             <div className={styles.container}>
                 <div className={styles.books__container}>
-                  <Book id='1' imageLinks="http://books.google.com/books/content?id=fmevEAAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api" authors='Stefano Calicchio' title="4 adımda problem çözme" description="Problem çözme nedir ve nasıl çalışır? Kimler kullanabilir ve ne gibi sonuçlar doğurur? Problem çözme stratejileri insanların hayatlarında nasıl bir fark yaratabilir? Bu rehber, problem çözmenin basit tanımının ötesine geçmek ve en iyi problem çözücüler ile önde gelen kurumsal ve kurumsal kuruluşlar tarafından problemleri çözmek için hangi stratejilerin uygulandığını açıklamak için basit, açık ve kapsamlı bir şekilde yazılmıştır. El kitabı özellikle okuyucunun elinden tutmakta ve onu konunun kilit noktalarıyla tanıştırmaktadır: - problem çözmenin ne olduğu ve nasıl işlediği; - bir problemin nasıl doğru bir şekilde temsil edileceği ve çözüm hipotezlerinin nasıl doğru bir şekilde tanımlanacağı - içgörünün ne olduğu ve bu düşünme biçiminin problem çözmede nasıl bir rol oynadığı - deneyimli ve deneyimsiz problem çözücüleri birbirinden ayıran özellikler ve problem çözme becerilerinin nasıl geliştirilebileceği. Bu kılavuzda açıklanan en iyi problem çözme stratejilerini doğru bir şekilde kullanmayı öğrenmek, nasıl yapılacağını bildiğiniz sürece herkes için erişilebilir bir etkinlik haline gelebilir. Binlerce sayfalık teorik kılavuzlarla zaman kaybetmeyi bırakın ve basit, teşvik edici ve anlaşılır bir okuma ile gerçekten neyin önemli olduğunu keşfedin." price="74.76 RUB"/>
-                  <Book id='2' authors='Stefano Calicchio' title="4 adımda problem çözme" ratingsCount='1M views' averageRating='2' description="Problem çözme nedir ve nasıl çalışır? Kimler kullanabilir ve ne gibi sonuçlar doğurur? Problem çözme stratejileri insanların hayatlarında nasıl bir fark yaratabilir? Bu rehber, problem çözmenin basit tanımının ötesine geçmek ve en iyi problem çözücüler ile önde gelen kurumsal ve kurumsal kuruluşlar tarafından problemleri çözmek için hangi stratejilerin uygulandığını açıklamak için basit, açık ve kapsamlı bir şekilde yazılmıştır. El kitabı özellikle okuyucunun elinden tutmakta ve onu konunun kilit noktalarıyla tanıştırmaktadır: - problem çözmenin ne olduğu ve nasıl işlediği; - bir problemin nasıl doğru bir şekilde temsil edileceği ve çözüm hipotezlerinin nasıl doğru bir şekilde tanımlanacağı - içgörünün ne olduğu ve bu düşünme biçiminin problem çözmede nasıl bir rol oynadığı - deneyimli ve deneyimsiz problem çözücüleri birbirinden ayıran özellikler ve problem çözme becerilerinin nasıl geliştirilebileceği. Bu kılavuzda açıklanan en iyi problem çözme stratejilerini doğru bir şekilde kullanmayı öğrenmek, nasıl yapılacağını bildiğiniz sürece herkes için erişilebilir bir etkinlik haline gelebilir. Binlerce sayfalık teorik kılavuzlarla zaman kaybetmeyi bırakın ve basit, teşvik edici ve anlaşılır bir okuma ile gerçekten neyin önemli olduğunu keşfedin." price="74.76 RUB"/>
+                  {booksData ?
+                  <>
+                    {booksData.map((item: any) => {
+                      const infodata = item.volumeInfo
+
+                      let price = ""
+                        if (item.saleInfo.retailPrice) { // Выводим корректную цену (Если её нет, то ничего не выводим)
+                            price = `${item.saleInfo.retailPrice.amount} ${item.saleInfo.retailPrice.currencyCode}`
+                        } else {
+                            price = ""
+                        }
+
+                      let description = ""
+                      let title = ""
+                      let thumbnail = "./images/nophoto.png"
+                      let averageRating = ""
+                      let ratingsCount = ""
+                      let authors = infodata.authors[0]
+
+                      if (infodata.description) {
+                          infodata.description.length > 100 ? description = infodata.description.slice(0, 100) + "..." : description = infodata.description
+                      }
+              
+                      if (infodata.title) {
+                          infodata.title.length > 25 ? title = infodata.title.slice(0, 25) + "..." : title = infodata.title
+                      }
+              
+                      if (infodata.imageLinks) {
+                          thumbnail = infodata.imageLinks.thumbnail
+                      }
+              
+                      if (infodata.averageRating) {
+                          averageRating = infodata.averageRating
+                      }
+              
+                      if (infodata.ratingsCount) {
+                          ratingsCount = infodata.ratingsCount + "M review"
+                      }
+
+                      return <Book id={item.id} title={title} description={description} imageLinks={thumbnail} authors={authors} averageRating={averageRating} ratingsCount={ratingsCount} price={price}/>
+                    })}
+                  </>
+                    :
+                    <p>No data</p>
+                  }
                 </div>
                 <div className={styles.newloader}>
                     <button className={`${styles.newloader__btn} standartbtn`}>Load more</button>

@@ -1,7 +1,9 @@
+import { useSelector } from "react-redux";
 import Layout from "../../components/Layout";
 import styles from "../styles/user.module.css"
 
 function User() {
+    const user = useSelector((state : any) => state.user)
     return (
         <Layout>
             <div className={styles.container}>
@@ -13,7 +15,7 @@ function User() {
                             <p className={styles.info_title}>Your name</p>
                             <p className={styles.info_data}>John Smith</p>
                             <p className={styles.info_title}>Your email</p>
-                            <p className={styles.info_data}>example@mail.com</p>
+                            <p className={styles.info_data}>{user.user.mail}</p>
                             <button className={styles.button}>Edit profile</button>
                         </div>
                     </div>

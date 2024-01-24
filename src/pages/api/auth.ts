@@ -6,11 +6,12 @@ export default async function handler(req : NextApiRequest, res: NextApiResponse
     }
 
     function validate(email = "", password = "") {
-        if (!email.match("/^[^\s@]+@[^\s@]+\.[^\s@]+$/")) {
+        const EMAIL_REGEXP = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!EMAIL_REGEXP.test(email)) {
             return {
-                    error: true
-                }
-        } else if (password.length >= 6) {
+                error: true
+            }
+        } else if (password.length < 6) {
             return {
                 error: true
             }
@@ -21,7 +22,7 @@ export default async function handler(req : NextApiRequest, res: NextApiResponse
         }
     }
 
-    const { email, password } = req.body;
+    const { email, password } = JSON.parse(req.body);
     // Ваша функция для валидации
     const validatedInfo = validate(email, password);
 

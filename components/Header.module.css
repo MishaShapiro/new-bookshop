@@ -132,6 +132,10 @@
     padding: 17px 0px 36px;
 }
 
+.loginWindow:hover {
+    cursor: default;
+}
+
 .loginHeading {
     color: var(--text-black, #1C2A39);
     font-family: Montserrat;
@@ -198,4 +202,10 @@
     font-weight: 700;
     line-height: normal;
     text-transform: uppercase;
+    transition: 0.5s ease-in-out;
+}
+
+.loginBtn:hover {
+    cursor: pointer;
+    background: #6d64cc;
 }
