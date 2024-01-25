@@ -52,3 +52,14 @@
     width: 100%;
     max-width: 1024px;
 }
+
+.loading {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-left: 50px;
+}
+
+.loading > img {
+    width: 300px;
+}

@@ -43,6 +43,7 @@ export default function Home() {
   }
 
   useEffect(() => {
+    setBooksData([])
     fetch("/api/books?" + new URLSearchParams({
       subject: Values[theam], 
       page: "6",
@@ -77,7 +78,7 @@ export default function Home() {
             </nav>
             <div className={styles.container}>
                 <div className={styles.books__container}>
-                  {booksData ?
+                  {booksData.length ?
                   <>
                     {booksData.map((item: any) => {
                       const infodata = item.volumeInfo
@@ -94,8 +95,8 @@ export default function Home() {
                       let thumbnail = "./images/nophoto.png"
                       let averageRating = ""
                       let ratingsCount = ""
-                      let authors = infodata.authors[0]
-
+                      let authors = ""
+                      
                       if (infodata.description) {
                           infodata.description.length > 100 ? description = infodata.description.slice(0, 100) + "..." : description = infodata.description
                       }
@@ -116,11 +117,17 @@ export default function Home() {
                           ratingsCount = infodata.ratingsCount + "M review"
                       }
 
+                      if (infodata.authors) {
+                        authors = infodata.authors[0]
+                      }
+
                       return <Book id={item.id} title={title} description={description} imageLinks={thumbnail} authors={authors} averageRating={averageRating} ratingsCount={ratingsCount} price={price}/>
                     })}
                   </>
                     :
-                    <p>No data</p>
+                    <div className={styles.loading}>
+                      <img src="/svg/Loading.svg" alt="Loadind" />
+                    </div>
                   }
                 </div>
                 <div className={styles.newloader}>
