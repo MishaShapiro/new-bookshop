@@ -4,10 +4,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const { subject, page } = req.query;
     const gbooksReqParams = new URLSearchParams();
     gbooksReqParams.set('q', `Subject:${subject}`);
-    gbooksReqParams.append('pageIndex', `${page}`)
+    gbooksReqParams.append('pageIndex', `0`)
+    gbooksReqParams.append('maxResults', `${page}`)
 
     try {
-        const result = await fetch(`https://www.googleapis.com/books/v1/volumes?${gbooksReqParams.toString()}&maxResults=6`)
+        const result = await fetch(`https://www.googleapis.com/books/v1/volumes?${gbooksReqParams.toString()}`)
         const booksData = await result.json();
         res.status(200).send({
             data: booksData,

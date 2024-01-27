@@ -3,24 +3,7 @@ import CartBook from "../../components/CartBook";
 import Layout from "../../components/Layout";
 import TableRow from "../../components/TableRow";
 import styles from "../styles/cart.module.css"
-
-const MockData : any[] = [
-    {
-        img: "http://books.google.com/books/content?id=fmevEAAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
-        title: "The weight of things",
-        author: "Marianne Fritz",
-        ratingsCount: "353", 
-        averageRating: "4",
-        price: "18.23",
-    },
-    {
-        title: "Mothers stories",
-        author: "Chris Power",
-        // ratingsCount: "400", 
-        // averageRating: "4",
-        price: "12.35",
-    }
-]
+import { useDispatch, useSelector } from "react-redux";
 
 function incr(arr : number[] = [], ind: number = 0) {
     arr[ind] += 1
@@ -34,6 +17,10 @@ function decr(arr : number[] = [], ind: number = 0) {
 
 function Cart() {
 
+    const dispatch = useDispatch();
+    const cart = useSelector((state : any) => state.cart);
+    const MockData : any[] = cart.books
+
     const [booksCount, setbooksCount] = useState(Array(MockData.length).fill(1))
 
     let totalPrice = 0
@@ -42,7 +29,7 @@ function Cart() {
         <Layout>
             <div className={styles.container}>
                 <h2 className={styles.heading}>SHOPPING CART</h2>
-                    {MockData.length ?
+                    {MockData[0].id !== "No Data" ?
                     (<>
                     <TableRow type="heading">
                         <p>ITEM</p>

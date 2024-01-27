@@ -1,4 +1,7 @@
 import styles from "./Book.module.css"
+import { useDispatch } from "react-redux"
+import { addBook } from "@/redux/CartSlice"
+
 
 interface BookType {
     id: string,
@@ -18,6 +21,8 @@ function Book({id, imageLinks="/images/nophoto.png", authors, title, ratingsCoun
     if (description) {
         description.length > 100 ? description = description.slice(0, 100) + "..." : description = description
     }
+
+    const dispatch = useDispatch();
     
     return (
         <div className={styles.book}>
@@ -36,9 +41,22 @@ function Book({id, imageLinks="/images/nophoto.png", authors, title, ratingsCoun
                 </div>
                 <p className={styles.book__description}>{description}</p>
                 <p className={styles.book__sale}>{price}</p>
-                <button className={`${styles[buttontype]} standartbtn ${styles.bookbtn}`}>
-                    {buttontype === "buybutton" ? "Buy now" : "in the cart"}
-                </button>
+                {price ?
+                    <button className={`${styles[buttontype]} standartbtn ${styles.bookbtn}`} onClick={() => {
+                        dispatch(addBook({
+                            img: imageLinks,
+                            title: title,
+                            author: authors,
+                            ratingsCount: ratingsCount, 
+                            averageRating: averageRating,
+                            price: price,
+                        }))
+                    }}>
+                        {buttontype === "buybutton" ? "Buy now" : "in the cart"}
+                    </button> 
+                    :
+                    <></>
+                }
             </div>
         </div>
     )

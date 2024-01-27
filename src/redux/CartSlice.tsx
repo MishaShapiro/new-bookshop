@@ -4,19 +4,32 @@ const cartSlice = createSlice({
     name: 'cart',
     initialState: {
         books: [{
-                id: 0,
-                name: "book",
-            }
-        ]
+            id: "No Data"
+        }]
     },
     reducers: {
         addBook: (state, action) => {
-            state.books.push(action.payload)
+            if (state.books[0].id === "No Data") {
+                state.books[0] = action.payload
+            } else {
+                state.books.push(action.payload)
+            }
         },
         deleteBook: (state, action) => {
-            state.books.filter((item) => {
-                return item.id == action.payload.id
-            })
+            if (state.books[0].id !== "No Data") {
+                state.books.filter((item) => {
+                    return item.id == action.payload.id
+                })
+                if (state.books.length === 0) {
+                    state.books = [{
+                        id: "No Data"
+                    }]
+                }
+            } else {
+                state.books = [{
+                    id: "No Data"
+                }]
+            }
         }
     }
 })

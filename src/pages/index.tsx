@@ -18,10 +18,16 @@ interface BookType {
   price: string,
 }
 
+
 export default function Home() {
 
   const [theam, setTheam] = useState(theams[0])
   const [booksData, setBooksData] = useState([])
+  const [booksCount, setBooksCount] = useState(6)
+  
+  function addBooks() {
+    setBooksCount(booksCount + 6)
+  }
   
   const Values : any = {
     "Architecture": "Architecture",
@@ -43,10 +49,14 @@ export default function Home() {
   }
 
   useEffect(() => {
+    setBooksCount(6)
+  }, [theam])
+
+  useEffect(() => {
     setBooksData([])
     fetch("/api/books?" + new URLSearchParams({
       subject: Values[theam], 
-      page: "6",
+      page: `${booksCount}`,
     }), 
     {
       method: 'POST',
@@ -57,7 +67,7 @@ export default function Home() {
       setBooksData(data.data.items)
     })
     .catch((res) => {console.log("error", res)})
-  }, [theam])
+  }, [booksCount])
 
   return (
     <Layout>
@@ -131,7 +141,7 @@ export default function Home() {
                   }
                 </div>
                 <div className={styles.newloader}>
-                    <button className={`${styles.newloader__btn} standartbtn`}>Load more</button>
+                    <button className={`${styles.newloader__btn} standartbtn`} onClick={addBooks}>Load more</button>
                 </div>
             </div>
         </div>
