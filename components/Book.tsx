@@ -1,6 +1,8 @@
 import styles from "./Book.module.css"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { addBook } from "@/redux/CartSlice"
+import { useState } from "react"
+import { useRouter } from "next/router"
 
 
 interface BookType {
@@ -12,12 +14,24 @@ interface BookType {
     averageRating?: string,
     description: string,
     price: string,
-    buttontype?: string,
+    priceCode: string,
 }
 
 
 
-function Book({id, imageLinks="/images/nophoto.png", authors, title, ratingsCount="", averageRating="", description, price, buttontype="buybutton"}: BookType) {
+function Book({id, imageLinks="/images/nophoto.png", authors, title, ratingsCount="", averageRating="", description, price, priceCode}: BookType) {
+
+    const router = useRouter()
+
+    let buttonType = "buybutton"
+
+    const cart = useSelector((state : any) => state.cart)
+    const arr = cart.books.map((item : any) => {return item.id})
+
+    if (arr.includes(id)) {
+        buttonType = "cartbtn"
+    }
+
     if (description) {
         description.length > 100 ? description = description.slice(0, 100) + "..." : description = description
     }
@@ -40,20 +54,31 @@ function Book({id, imageLinks="/images/nophoto.png", authors, title, ratingsCoun
                     }   
                 </div>
                 <p className={styles.book__description}>{description}</p>
-                <p className={styles.book__sale}>{price}</p>
+                <p className={styles.book__sale}>{`${price} ${priceCode}`}</p>
                 {price ?
-                    <button className={`${styles[buttontype]} standartbtn ${styles.bookbtn}`} onClick={() => {
-                        dispatch(addBook({
-                            img: imageLinks,
-                            title: title,
-                            author: authors,
-                            ratingsCount: ratingsCount, 
-                            averageRating: averageRating,
-                            price: price,
-                        }))
-                    }}>
-                        {buttontype === "buybutton" ? "Buy now" : "in the cart"}
-                    </button> 
+                    <>
+                        {buttonType === "buybutton" ? 
+                                <button className={`${styles[buttonType]} standartbtn ${styles.bookbtn}`} onClick={() => {
+                                    dispatch(addBook({
+                                        id: id,
+                                        img: imageLinks,
+                                        title: title,
+                                        author: authors,
+                                        ratingsCount: ratingsCount, 
+                                        averageRating: averageRating,
+                                        price: price,
+                                        priceCode: priceCode,
+                                        count: 1,
+                                    }))
+                                }}>
+                                    Buy now
+                                </button>  
+                            : 
+                            <button className={`${styles[buttonType]} standartbtn ${styles.bookbtn}`} onClick={() => {router.push("/cart")}}>
+                                in the cart
+                            </button> 
+                        }
+                    </>
                     :
                     <></>
                 }

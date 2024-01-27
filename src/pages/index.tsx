@@ -5,6 +5,7 @@ import Theam from '../../components/Theam'
 import styles from "../styles/index.module.css"
 import Swiper from '../../components/Swiper/Swiper'
 import Slide from '../../components/Swiper/Slide'
+import { setServers } from 'dns'
 
 const theams = ["Architecture", "Art & Fashion", "Biography", "Business", "Crafts & Hobbies", "Drama", "Fiction", "Food & Drink", "Health & Wellbeing", "History & Politics", "Humor", "Poetry", "Psychology", "Science", "Technology", "Travel & Maps"]
 
@@ -24,6 +25,7 @@ export default function Home() {
   const [theam, setTheam] = useState(theams[0])
   const [booksData, setBooksData] = useState([])
   const [booksCount, setBooksCount] = useState(6)
+  const [reload, changeReload] = useState(true) // Небольшой костыль, который исправляет загрузку книг
   
   function addBooks() {
     setBooksCount(booksCount + 6)
@@ -48,11 +50,7 @@ export default function Home() {
     "Travel & Maps": "Travel",
   }
 
-  useEffect(() => {
-    setBooksCount(6)
-  }, [theam])
-
-  useEffect(() => {
+  function sendFetch() {
     setBooksData([])
     fetch("/api/books?" + new URLSearchParams({
       subject: Values[theam], 
@@ -67,7 +65,18 @@ export default function Home() {
       setBooksData(data.data.items)
     })
     .catch((res) => {console.log("error", res)})
-  }, [booksCount])
+  }
+
+  useEffect(() => {
+    if (booksCount === 6) {
+      changeReload(!reload) // Так как изменение booksCount не перезагружает страницу, нам нужно запустить загрузку через reload
+    }
+    setBooksCount(6)
+  }, [theam])
+
+  useEffect(() => {
+    sendFetch()
+  }, [booksCount, reload]) 
 
   return (
     <Layout>
@@ -94,11 +103,11 @@ export default function Home() {
                       const infodata = item.volumeInfo
 
                       let price = ""
-                        if (item.saleInfo.retailPrice) { // Выводим корректную цену (Если её нет, то ничего не выводим)
-                            price = `${item.saleInfo.retailPrice.amount} ${item.saleInfo.retailPrice.currencyCode}`
-                        } else {
-                            price = ""
-                        }
+                      let priceCode = ""
+                      if (item.saleInfo.retailPrice) { // Выводим корректную цену (Если её нет, то ничего не выводим)
+                          price = `${item.saleInfo.retailPrice.amount}`
+                          priceCode = `${item.saleInfo.retailPrice.currencyCode}`
+                      }
 
                       let description = ""
                       let title = ""
@@ -131,7 +140,7 @@ export default function Home() {
                         authors = infodata.authors[0]
                       }
 
-                      return <Book id={item.id} title={title} description={description} imageLinks={thumbnail} authors={authors} averageRating={averageRating} ratingsCount={ratingsCount} price={price}/>
+                      return <Book id={item.id} title={title} description={description} imageLinks={thumbnail} authors={authors} averageRating={averageRating} ratingsCount={ratingsCount} price={price} priceCode={priceCode}/>
                     })}
                   </>
                     :
