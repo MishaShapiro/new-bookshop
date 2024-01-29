@@ -2,22 +2,25 @@ import Link from "next/link"
 import styles from "./Header.module.css"
 import { useRouter } from "next/router"
 import { DOMElement, useEffect, useRef, useState } from "react"
-import { useDispatch } from "react-redux"
-import { setUser } from "@/redux/UserSlice"
+import { useDispatch, useSelector } from "react-redux"
+import { addUser, setUser, upload } from "@/redux/UserSlice"
 import store from "@/redux/store"
 
 function Header() {
-
     const dispatch = useDispatch()
+    const user = useSelector((state : any) => state.user)
 
     const router = useRouter()
     const pathname = useRouter().pathname
 
     const [email, setEmail] = useState("")
     const [pass, setPass] = useState("")
+    const [repeatPass, setRepeatPass] = useState("")
+    const [userName, setUserName] = useState("")
 
     const ref: React.RefObject<any> = useRef(null)
     const [isOpen, setIsOpen] = useState(false)
+    const [isRegister, setRegister] = useState(false)
 
     useEffect(() => {
         function clickOutside(e: MouseEvent) {
@@ -30,26 +33,65 @@ function Header() {
         return () => {document.removeEventListener("mousedown", clickOutside)}
     }, [isOpen])
 
-    const [isCorrect, setIsCorrect] = useState(true)
+    const [isInCorrect, setIsInCorrect] = useState("")
 
-    function sendAuthFetch(email = "", pass = "") {
+    function sendAuthFetch(email = "", pass = "", allUsers=[]) {
         fetch("/api/auth", {
             method: "POST",
             body: JSON.stringify({
                 email: email,
                 password: pass,
+                allUsers: allUsers,
             })
         })
         .then((res) => {return res.json()})
         .then((res) => {
             if (res.success) {
-                dispatch(setUser({
-                    mail: email,
-                    pass: pass,
+                dispatch(setUser({data: 
+                    {
+                        mail: email,
+                        pass: pass,
+                    }
                 }))
                 router.push("/user")
             } else {
-                setIsCorrect(false)
+                setIsInCorrect(res.message)
+            }
+        })
+        .catch((res) => {
+            console.log(res)
+        })
+    }
+
+    function sendRegisterFetch(email = "", pass = "", repeatPass="", userName = "") {
+        fetch("/api/register", {
+            method: "POST",
+            body: JSON.stringify({
+                email: email,
+                password: pass,
+                repeatPass: repeatPass,
+            })
+        })
+        .then((res) => {return res.json()})
+        .then((res) => {
+            if (res.success) {
+                dispatch(addUser({newUser: 
+                    {
+                        mail: email,
+                        pass: pass,
+                        name: userName,
+                    }
+                }))
+                dispatch(setUser({data:
+                    {
+                        mail: email,
+                        pass: pass,
+                        name: userName,
+                    }
+                }))
+                router.push("/user")
+            } else {
+                setIsInCorrect(res.message)
             }
         })
         .catch((res) => {
@@ -59,7 +101,8 @@ function Header() {
 
     return (
         <header className={styles.header}>
-            <button onClick={()=> {console.log(store.getState())}}>Click</button>
+            <button onClick={() => {dispatch(upload())}}>Clear user</button>
+            <button onClick={()=> {console.log(store.getState())}}>Storage</button>
             <div className={styles.header__container}>
                 <p className={styles.container__name}>
                     Bookshop
@@ -85,15 +128,33 @@ function Header() {
                         {/* <Link href={"/user"}></Link> */}
                         <img src="/svg/user.svg" alt="user.svg" onClick={() => {setIsOpen(!isOpen)}} />
                         {isOpen ?
-                            <div className={styles.loginWindow}>
-                                <h3 className={styles.loginHeading}>Login</h3>
-                                <p className={styles.loginText}>Email</p>
-                                <input value={email} onChange={(e) => {setEmail(e.target.value)}} className={styles.loginInput} type="text" />
-                                <p className={styles.loginText}>Password</p>
-                                <input value={pass} onChange={(e) => {setPass(e.target.value)}} className={styles.loginInput} type="password" />
-                                {!isCorrect ? <p className={styles.errMess}>Your password must be at least 6 characters long</p> : <></>}
-                                <button className={styles.loginBtn} onClick={() => {sendAuthFetch(email, pass)}}>Log in</button>
-                            </div>
+                            (isRegister ?
+                                <div className={styles.loginWindow}>
+                                    <h3 className={styles.loginHeading}>Register</h3>
+                                    <p className={styles.loginText}>your name</p>
+                                    <input value={userName} onChange={(e) => {setUserName(e.target.value)}} className={styles.loginInput} type="text" />
+                                    <p className={styles.loginText}>Email</p>
+                                    <input value={email} onChange={(e) => {setEmail(e.target.value)}} className={styles.loginInput} type="text" />
+                                    <p className={styles.loginText}>Password</p>
+                                    <input value={pass} onChange={(e) => {setPass(e.target.value)}} className={styles.loginInput} type="password" />
+                                    <p className={styles.loginText}>Repeat Password</p>
+                                    <input value={repeatPass} onChange={(e) => {setRepeatPass(e.target.value)}} className={styles.loginInput} type="password" />
+                                    {isInCorrect ? <p className={styles.errMess}>{isInCorrect}</p> : <></>}
+                                    <button className={styles.loginBtn} onClick={() => {sendRegisterFetch(email, pass, repeatPass, userName)}}>Log in</button>
+                                    <button onClick={() => {setRegister(!isRegister)}}>login</button>
+                                </div>
+                                :
+                                <div className={styles.loginWindow}>
+                                    <h3 className={styles.loginHeading}>Login</h3>
+                                    <p className={styles.loginText}>Email</p>
+                                    <input value={email} onChange={(e) => {setEmail(e.target.value)}} className={styles.loginInput} type="text" />
+                                    <p className={styles.loginText}>Password</p>
+                                    <input value={pass} onChange={(e) => {setPass(e.target.value)}} className={styles.loginInput} type="password" />
+                                    {isInCorrect ? <p className={styles.errMess}>{isInCorrect}</p> : <></>}
+                                    <button className={styles.loginBtn} onClick={() => {sendAuthFetch(email, pass, user.allUsers)}}>Log in</button>
+                                    <button onClick={() => {setRegister(!isRegister)}}>register</button>
+                                </div>
+                            )
                             :
                             <></>
                         }

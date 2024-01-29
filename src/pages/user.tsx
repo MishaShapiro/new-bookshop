@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Layout from "../../components/Layout";
 import styles from "../styles/user.module.css"
 
@@ -13,9 +13,9 @@ function User() {
                         <img src="/images/user.png" alt="user.png" />
                         <div className={styles.main_info}>
                             <p className={styles.info_title}>Your name</p>
-                            <p className={styles.info_data}>John Smith</p>
+                            <p className={styles.info_data}>{user.data.name}</p>
                             <p className={styles.info_title}>Your email</p>
-                            <p className={styles.info_data}>{user.user.mail}</p>
+                            <p className={styles.info_data}>{user.data.mail}</p>
                             <button className={styles.button}>Edit profile</button>
                         </div>
                     </div>
