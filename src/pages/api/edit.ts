@@ -27,11 +27,7 @@ export default async function handler(req : NextApiRequest, res: NextApiResponse
     const { oldMail, email, password, repeatPass, name, info, allUsers } = JSON.parse(req.body);
     // Ваша функция для валидации
     const validatedInfo = validate(email, password);
-
-    const sameUser = allUsers.filter((user: any) => {
-        return (user.mail === email)
-    })
-
+    
     allUsers.map((user: any) => {
         if (oldMail === user.mail) {
             user.mail = email
@@ -45,8 +41,6 @@ export default async function handler(req : NextApiRequest, res: NextApiResponse
         res.status(400).send({ error: true, message: validatedInfo.message });
     } else if (password !== repeatPass) {
         res.status(400).send({ error: true, message: 'Password and Repeat password not the same' })
-    } else if (sameUser.length > 0) {
-        res.status(400).send({ error: true, message: 'This email already exists' })
     } else {
         res.status(200).send({ success: true, allUsers: allUsers });
     }
