@@ -2,10 +2,11 @@
     max-width: 1120px;
     margin: 120px auto 0px;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
 }
 
-.profile_title {
+.heading {
     color: var(--text-black, #1C2A39);
     font-family: Montserrat;
     font-size: 24px;
@@ -15,32 +16,48 @@
     text-transform: uppercase;
 }
 
-.info_img {
-    display: flex;
-}
+.input {
+    border: 1px solid #4C3DB2;
+    max-width: 600px;
 
-.info_title, .info_data {
-    color: #000;
+    color: #4C3DB2;
+
     font-family: Montserrat;
+    font-size: 12px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+
+    margin-top: 9px;
+    padding: 10px 9px;
 }
 
-.info_title {
+.title {
+    width: 176px;
+    color: #000;
+
+    font-family: Montserrat;
     font-size: 12px;
-    text-transform: uppercase;
-    margin-bottom: 8px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: capitalize;
+    margin-top: 15px;
 }
 
-.info_data {
-    font-size: 24px;
-    margin-bottom: 25px;
+#textarea {
+    height: 100px;
+    resize: none;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-around;
+    max-width: 600px;
 }
 
 .button {
     margin-top: 16px;
-    margin-right: 10px;
 
     width: 176px;
     height: 45px;
@@ -65,35 +82,20 @@
     transition: 0.1s ease-in-out;
 }
 
-.about_me {
-    padding: 17px 28px;
-    width: 353px;
-    height: 345px;
-    background: #FFE0E2;
-    box-shadow: 10px 20px 15px rgba(99, 99, 99, 0.2);
-
-    overflow: hidden;
-
-    text-align: center;
+.button_cancel {
+    background-color: #e96e86;
 }
 
-.about_me_text {
-    text-align: start;
-    margin-top: 29px;
+.button_cancel:hover {
+    background-color: #ff0032;
+}
 
-    color: #5C6A79;
-
+.error {
+    margin-top: 10px;
+    color: #ff0000;
     font-family: Montserrat;
-    font-size: 12px;
+    font-size: 14px;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 400;
     line-height: normal;
-
-}
-
-.quitbutton {
-    width: 150px;
-    height: 45px;
-    border: 1px solid #4C3DB2;
-    background-color: rgba(255, 0, 0, 0.452);
 }

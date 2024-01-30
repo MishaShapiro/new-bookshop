@@ -24,14 +24,20 @@ export default async function handler(req : NextApiRequest, res: NextApiResponse
         }
     }
 
-    const { email, password, repeatPass } = JSON.parse(req.body);
+    const { email, password, repeatPass, allUsers } = JSON.parse(req.body);
     // Ваша функция для валидации
     const validatedInfo = validate(email, password);
+
+    const sameUser = allUsers.filter((user: any) => {
+        return (user.mail === email)
+    })
 
     if (validatedInfo.error) {
         res.status(400).send({ error: true, message: validatedInfo.message });
     } else if (password !== repeatPass) {
         res.status(400).send({ error: true, message: 'Password and Repeat password not the same' })
+    } else if (sameUser.length > 0) {
+        res.status(400).send({ error: true, message: 'This email already exists' })
     } else {
         res.status(200).send({ success: true, token: 'testToken' });
     }

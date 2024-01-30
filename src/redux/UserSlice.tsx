@@ -4,7 +4,7 @@ interface UserType {
     mail: string,
     pass: string,
     name: string,
-    about: string,
+    info: string,
 }
 
 interface StateType {
@@ -19,7 +19,7 @@ const userSlice = createSlice({
             mail: "",
             pass: "",
             name: "",
-            about: "",
+            info: "",
         },
         allUsers: [
             
@@ -35,13 +35,24 @@ const userSlice = createSlice({
         addUser: (state : StateType, action) => {
             state.allUsers.push(action.payload.newUser)
         },
+        editAllUser: (state: StateType, action) => {
+            state.allUsers = action.payload.allUsers
+        },
+        quit: (state) => {
+            state.data = {
+                mail: "",
+                pass: "",
+                name: "",
+                info: "",
+            }
+        },
         upload: (state) => {
             state = {
                 data: {
                     mail: "",
                     pass: "",
                     name: "",
-                    about: "",
+                    info: "",
                 },
                 allUsers: [
 
@@ -52,6 +63,6 @@ const userSlice = createSlice({
     }
 })
     
-export const { setUser, upload, addUser } = userSlice.actions;
+export const { setUser, upload, quit, addUser, editAllUser } = userSlice.actions;
     
 export default userSlice;

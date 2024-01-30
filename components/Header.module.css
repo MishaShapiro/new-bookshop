@@ -209,3 +209,24 @@
     cursor: pointer;
     background: #6d64cc;
 }
+
+.changeBtn {
+    margin-top: 10px;
+    width: 150px;
+    height: 20px;
+    background: #e7e8f6;
+    color: #000;
+
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+    transition: 0.5s ease-in-out;
+}
+
+.changeBtn:hover {
+    cursor: pointer;
+    background: #b7b9d6;
+}

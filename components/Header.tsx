@@ -63,13 +63,14 @@ function Header() {
         })
     }
 
-    function sendRegisterFetch(email = "", pass = "", repeatPass="", userName = "") {
+    function sendRegisterFetch(email = "", pass = "", repeatPass="", userName = "", allUsers = []) {
         fetch("/api/register", {
             method: "POST",
             body: JSON.stringify({
                 email: email,
                 password: pass,
                 repeatPass: repeatPass,
+                allUsers: allUsers,
             })
         })
         .then((res) => {return res.json()})
@@ -80,13 +81,13 @@ function Header() {
                         mail: email,
                         pass: pass,
                         name: userName,
+                        info: "Some information about user..."
                     }
                 }))
                 dispatch(setUser({data:
                     {
                         mail: email,
                         pass: pass,
-                        name: userName,
                     }
                 }))
                 router.push("/user")
@@ -124,9 +125,8 @@ function Header() {
                     </ul>
                 </nav>
                 <div className={styles.container__icons}>
-                    <div id={styles.icon_user} className={styles.icons} ref={ref}>
-                        {/* <Link href={"/user"}></Link> */}
-                        <img src="/svg/user.svg" alt="user.svg" onClick={() => {setIsOpen(!isOpen)}} />
+                    <div id={styles.icon_user} className={`${styles.icons} ${pathname === "/user" ? styles.links__link_active : ""}`} ref={ref}>
+                        <img src="/svg/user.svg" alt="user.svg" onClick={() => {user.data.mail ? router.push("/user") : setIsOpen(!isOpen)}} />
                         {isOpen ?
                             (isRegister ?
                                 <div className={styles.loginWindow}>
@@ -140,8 +140,8 @@ function Header() {
                                     <p className={styles.loginText}>Repeat Password</p>
                                     <input value={repeatPass} onChange={(e) => {setRepeatPass(e.target.value)}} className={styles.loginInput} type="password" />
                                     {isInCorrect ? <p className={styles.errMess}>{isInCorrect}</p> : <></>}
-                                    <button className={styles.loginBtn} onClick={() => {sendRegisterFetch(email, pass, repeatPass, userName)}}>Log in</button>
-                                    <button onClick={() => {setRegister(!isRegister)}}>login</button>
+                                    <button className={styles.loginBtn} onClick={() => {sendRegisterFetch(email, pass, repeatPass, userName, user.allUsers)}}>Register</button>
+                                    <button onClick={() => {setRegister(!isRegister)}} className={styles.changeBtn}>login</button>
                                 </div>
                                 :
                                 <div className={styles.loginWindow}>
@@ -152,7 +152,7 @@ function Header() {
                                     <input value={pass} onChange={(e) => {setPass(e.target.value)}} className={styles.loginInput} type="password" />
                                     {isInCorrect ? <p className={styles.errMess}>{isInCorrect}</p> : <></>}
                                     <button className={styles.loginBtn} onClick={() => {sendAuthFetch(email, pass, user.allUsers)}}>Log in</button>
-                                    <button onClick={() => {setRegister(!isRegister)}}>register</button>
+                                    <button onClick={() => {setRegister(!isRegister)}} className={styles.changeBtn}>register</button>
                                 </div>
                             )
                             :
