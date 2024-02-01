@@ -1,6 +1,7 @@
 import { PropsWithChildren, useEffect, useState } from "react"
 import styles from "./Swiper.module.css"
 import { Children } from "react"
+import Image from "next/image"
 
 function Swiper({timeout = 1000, children = {}}) {
 
@@ -35,18 +36,18 @@ function Swiper({timeout = 1000, children = {}}) {
         <div className={styles.swiper}>
             <div className={styles.slides}>
                 <button onClick={() => {moveToPrevSlide()}}>
-                    <img src="/svg/arrow-left.svg" alt="arrow-left.svg"/>
+                    <Image src={"/svg/arrow-left.svg"} alt={"arrow-left.svg"} width={50} height={50}/>
                 </button>
                 <>{Children.map(children, (child, i) => i === currentSlide && child)}</>
                 <button onClick={() => {moveToNextSlide()}}>
-                    <img src="/svg/arrow-right.svg" alt="arrow-right.svg"/>
+                    <Image src={"/svg/arrow-right.svg"} alt={"arrow-right.svg"} width={50} height={50}/>
                 </button>
             </div>
             <div className={styles.points}>
                 {Children.map(children, (child, i) => {
                 return (
                     <button onClick={() => {setCurrentSlide(i)}}>
-                        {currentSlide === i ? <img src="/svg/point_active.svg" alt="point.svg"/> : <img src="/svg/point.svg" alt="point.svg"/>}
+                        {currentSlide === i ? <Image src={"/svg/point_active.svg"} alt={"point.svg"} width={12} height={12}/> : <Image src={"/svg/point.svg"} alt={"point.svg"} width={12} height={12}/>}
                     </button>
                 )})}
             </div>

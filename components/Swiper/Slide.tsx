@@ -1,9 +1,10 @@
+import Image from "next/image"
 import styles from "./Swiper.module.css"
 
 function Slide({url = "none"}) {
     return (
         <div className={styles.slide_container}>
-            <img src={url} alt="No photo(" />
+            <Image src={url} alt="No photo(" width={600} height={380}/>
         </div>
     )
 }
