@@ -4,6 +4,17 @@ import styles from "../styles/user_edit.module.css"
 import { useRouter } from "next/router"
 import { useDispatch, useSelector } from "react-redux"
 import { editAllUser, setUser } from "@/redux/UserSlice"
+import { Montserrat } from 'next/font/google';
+
+const font700 = Montserrat({
+    weight: ["700"],
+    subsets: ["latin", "cyrillic"],
+})
+
+const font400 = Montserrat({
+    weight: ["400"],
+    subsets: ["latin", "cyrillic"],
+})
 
 function UserEdit() {
     const router = useRouter()
@@ -57,7 +68,7 @@ function UserEdit() {
 
     return (
         <Layout>
-            <div className={styles.container}>
+            <div className={`${styles.container} ${font700.className}`}>
                 <h2 className={styles.heading}>EDIT PROFILE:</h2>
                 <p className={styles.title}>Name</p>
                 <input type="text" className={styles.input} value={userName} onChange={(e) => {setUserName(e.target.value)}}/>
@@ -74,7 +85,7 @@ function UserEdit() {
                     <button className={`${styles.button} ${styles.button_cancel}`} onClick={() => {router.push("/user")}}>Cancel</button>
                 </div>
                 {isInCorrect ? 
-                <p className={styles.error}>{isInCorrect}</p>
+                <p className={`${styles.error} ${font400.className}`}>{isInCorrect}</p>
                 :
                 <></>}
             </div>

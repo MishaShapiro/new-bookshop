@@ -5,11 +5,7 @@
 
 .heading {
     color: var(--text-black, #1C2A39);
-    font-family: Montserrat;
     font-size: 24px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
 }
 
 .buttonsContainer {
@@ -28,51 +24,30 @@
 
 .booksCount {
     color: #5C6A79;
-    font-family: Montserrat;
     font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
     text-transform: uppercase;
 }
 
 .bookPrice {
     color: var(--text-black, #1C2A39);
-    font-family: Montserrat;
     font-size: 18px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
     text-transform: uppercase;
 }
 
 .delivery {
     color: #5C6A79;
-
-    font-family: Montserrat;
     font-size: 12px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
 }
 
 .noData {
     margin-top: 20px;
     color: var(--text-black, #1C2A39);
-    font-family: Montserrat;
     font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
 }
 
 .totalPrice {
     margin-bottom: 20px;
     color: var(--text-black, #1C2A39);
-    font-family: Montserrat;
     font-size: 24px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
     text-transform: uppercase;
 }

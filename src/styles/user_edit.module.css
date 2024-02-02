@@ -8,11 +8,7 @@
 
 .heading {
     color: var(--text-black, #1C2A39);
-    font-family: Montserrat;
     font-size: 24px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
     text-transform: uppercase;
 }
 
@@ -21,12 +17,7 @@
     max-width: 600px;
 
     color: #4C3DB2;
-
-    font-family: Montserrat;
     font-size: 12px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
 
     margin-top: 9px;
     padding: 10px 9px;
@@ -36,11 +27,7 @@
     width: 176px;
     color: #000;
 
-    font-family: Montserrat;
     font-size: 12px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
     text-transform: capitalize;
     margin-top: 15px;
 }
@@ -64,11 +51,7 @@
     border: 1px solid #4C3DB2;
 
     color: #4C3DB2;
-    font-family: Montserrat;
     font-size: 8px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
     text-transform: uppercase;
 }
 
@@ -93,9 +76,5 @@
 .error {
     margin-top: 10px;
     color: #ff0000;
-    font-family: Montserrat;
     font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
 }

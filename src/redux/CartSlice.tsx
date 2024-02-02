@@ -41,10 +41,22 @@ const cartSlice = createSlice({
                     count: 0,
                 }]
             }
+        },
+        setCart: (state, action) => {
+            state.books = action.payload.books
+        },
+        cartUpload: (state) => {
+            state = {
+                books: [{
+                    id: "No Data",
+                    count: 0,
+                 }]
+            }
+            return state
         }
     }
 })
     
-export const { addBook, changeIndex } = cartSlice.actions;
+export const { addBook, changeIndex, setCart, cartUpload } = cartSlice.actions;
     
 export default cartSlice;

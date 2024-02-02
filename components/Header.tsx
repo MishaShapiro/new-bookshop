@@ -5,10 +5,33 @@ import { DOMElement, useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { addUser, setUser, upload } from "@/redux/UserSlice"
 import store from "@/redux/store"
+import { Montserrat } from 'next/font/google';
+import Image from "next/image"
+import { cartUpload, setCart } from "@/redux/CartSlice"
+
+const font700 = Montserrat({
+    weight: ["700"],
+    subsets: ["latin", "cyrillic"],
+})
+
+const font900 = Montserrat({
+    weight: ["900"],
+    subsets: ["latin", "cyrillic"],
+})
+
+const font500 = Montserrat({
+    weight: ["500"],
+    subsets: ["latin", "cyrillic"],
+})
 
 function Header() {
     const dispatch = useDispatch()
     const user = useSelector((state : any) => state.user)
+    const cart = useSelector((state : any) => state.cart)
+
+    useEffect(() => {
+        dispatch(setCart({books: user.data.cart}))
+    }, [])
 
     const router = useRouter()
     const pathname = useRouter().pathname
@@ -63,7 +86,7 @@ function Header() {
         })
     }
 
-    function sendRegisterFetch(email = "", pass = "", repeatPass="", userName = "", allUsers = []) {
+    function sendRegisterFetch(email = "", pass = "", repeatPass="", userName = "", cart = [{id: "No Data", count: 0,}], allUsers = []) {
         fetch("/api/register", {
             method: "POST",
             body: JSON.stringify({
@@ -81,7 +104,8 @@ function Header() {
                         mail: email,
                         pass: pass,
                         name: userName,
-                        info: "Some information about user..."
+                        info: "Some information about user...",
+                        cart: cart
                     }
                 }))
                 dispatch(setUser({data:
@@ -102,53 +126,53 @@ function Header() {
 
     return (
         <header className={styles.header}>
-            <button onClick={() => {dispatch(upload())}}>Clear user</button>
-            <button onClick={()=> {console.log(store.getState())}}>Storage</button>
+            {/* <button onClick={() => {dispatch(upload())}}>Clear user</button>
+            <button onClick={()=> {console.log(store.getState())}}>Storage</button> */}
             <div className={styles.header__container}>
-                <p className={styles.container__name}>
+                <p className={`${styles.container__name} ${font700.className}`}>
                     Bookshop
                 </p>
-                <nav className={styles.container__links}>
+                <nav className={`${styles.container__links} ${font700.className}`}>
                     <ul id={styles.links}>
-                        <li className={`${styles.links__link} ${pathname === "/" ? styles.links__link_active : ""}`}>
+                        <li className={`${styles.links__link} ${pathname === "/" ? `${styles.links__link_active} ${font900.className}` : ""}`}>
                             <Link href={"/"}>books</Link >
                         </li>
-                        <li className={`${styles.links__link} ${pathname === "/audiobooks" ? styles.links__link_active : ""}`}>
+                        <li className={`${styles.links__link} ${pathname === "/audiobooks" ? `${styles.links__link_active} ${font900.className}` : ""}`}>
                             <Link href={"/audiobooks"}>audiobooks</Link>
                         </li>
-                        <li className={`${styles.links__link} ${pathname === "/gifts" || pathname === "/404" ? styles.links__link_active : ""}`}>
+                        <li className={`${styles.links__link} ${pathname === "/gifts" || pathname === "/404" ? `${styles.links__link_active} ${font900.className}` : ""}`}>
                             <Link href={"/gifts"}>Stationery & gifts</Link>
                         </li>
-                        <li className={`${styles.links__link} ${pathname === "/blog" || pathname === "/404" ? styles.links__link_active : ""}`}>
+                        <li className={`${styles.links__link} ${pathname === "/blog" || pathname === "/404" ? `${styles.links__link_active} ${font900.className}` : ""}`}>
                             <Link href={"/blog"}>blog</Link>
                         </li>
                     </ul>
                 </nav>
                 <div className={styles.container__icons}>
                     <div id={styles.icon_user} className={`${styles.icons} ${pathname === "/user" ? styles.links__link_active : ""}`} ref={ref}>
-                        <img src="/svg/user.svg" alt="user.svg" onClick={() => {user.data.mail ? router.push("/user") : setIsOpen(!isOpen)}} />
+                        <Image src={"/svg/user.svg"} alt={"user.svg"} onClick={() => {user.data.mail ? router.push("/user") : setIsOpen(!isOpen)}} width={12} height={15}/>
                         {isOpen ?
                             (isRegister ?
-                                <div className={styles.loginWindow}>
-                                    <h3 className={styles.loginHeading}>Register</h3>
-                                    <p className={styles.loginText}>your name</p>
+                                <div className={`${styles.loginWindow} ${font700.className}`}>
+                                    <h3 className={`${styles.loginHeading} ${font700.className}`}>Register</h3>
+                                    <p className={`${styles.loginText} ${font700.className}`}>your name</p>
                                     <input value={userName} onChange={(e) => {setUserName(e.target.value)}} className={styles.loginInput} type="text" />
-                                    <p className={styles.loginText}>Email</p>
+                                    <p className={`${styles.loginText} ${font700.className}`}>Email</p>
                                     <input value={email} onChange={(e) => {setEmail(e.target.value)}} className={styles.loginInput} type="text" />
-                                    <p className={styles.loginText}>Password</p>
+                                    <p className={`${styles.loginText} ${font700.className}`}>Password</p>
                                     <input value={pass} onChange={(e) => {setPass(e.target.value)}} className={styles.loginInput} type="password" />
-                                    <p className={styles.loginText}>Repeat Password</p>
+                                    <p className={`${styles.loginText} ${font700.className}`}>Repeat Password</p>
                                     <input value={repeatPass} onChange={(e) => {setRepeatPass(e.target.value)}} className={styles.loginInput} type="password" />
                                     {isInCorrect ? <p className={styles.errMess}>{isInCorrect}</p> : <></>}
-                                    <button className={styles.loginBtn} onClick={() => {sendRegisterFetch(email, pass, repeatPass, userName, user.allUsers)}}>Register</button>
+                                    <button className={styles.loginBtn} onClick={() => {sendRegisterFetch(email, pass, repeatPass, userName, user.data.cart, user.allUsers)}}>Register</button>
                                     <button onClick={() => {setRegister(!isRegister)}} className={styles.changeBtn}>login</button>
                                 </div>
                                 :
-                                <div className={styles.loginWindow}>
-                                    <h3 className={styles.loginHeading}>Login</h3>
-                                    <p className={styles.loginText}>Email</p>
+                                <div className={`${styles.loginWindow} ${font700.className}`}>
+                                    <h3 className={`${styles.loginHeading} ${font700.className}`}>Login</h3>
+                                    <p className={`${styles.loginText} ${font700.className}`}>Email</p>
                                     <input value={email} onChange={(e) => {setEmail(e.target.value)}} className={styles.loginInput} type="text" />
-                                    <p className={styles.loginText}>Password</p>
+                                    <p className={`${styles.loginText} ${font700.className}`}>Password</p>
                                     <input value={pass} onChange={(e) => {setPass(e.target.value)}} className={styles.loginInput} type="password" />
                                     {isInCorrect ? <p className={styles.errMess}>{isInCorrect}</p> : <></>}
                                     <button className={styles.loginBtn} onClick={() => {sendAuthFetch(email, pass, user.allUsers)}}>Log in</button>
@@ -160,15 +184,16 @@ function Header() {
                         }
                     </div>
                     <div id={styles.icon_search} className={styles.icons}>
-                        <img src="/svg/search.svg" alt="search.svg" />
+                        <Image src={"/svg/search.svg"} alt={"search.svg"} width={15} height={15}/>
                     </div>
-                    <div id={styles.icon_shopbag_cont}>
+                    <div id={styles.icon_shopbag_cont} className={user.data.mail ? "" : styles.disabled}>
                         <Link href={"/cart"}> 
                             <div id={styles.icon_shopbag} className={styles.icons}>
-                                <img src="/svg/shop bag.svg" alt="shop_bag.svg" />
+                                <Image src={"/svg/shop bag.svg"} alt={"shop_bag.svg"} width={14} height={17}/>
                             </div>
-                            <div id={styles.icon_circle} className={`${styles.icons} ${styles.icons_circle_1} ${styles.icon_circle_active}`}>
-                                <img src="/svg/circle.svg" alt="circle.svg" />
+                            <div id={styles.icon_circle} className={`${font500.className} ${styles.icons} ${styles.icons_circle_1} ${cart.books[0].id !== 'No Data' ? styles.icon_circle_active : ""}`}>
+                                <p id={styles.icon_circle_num} className={cart.books.length >= 10 ? styles.icon_circle_num10 : styles.icon_circle_num1}>{cart.books.length}</p>
+                                <Image src={"/svg/circle.svg"} alt={"circle.svg"} width={16} height={16}/>
                             </div>
                         </Link>
                     </div>

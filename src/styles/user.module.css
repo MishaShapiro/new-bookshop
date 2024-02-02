@@ -7,11 +7,7 @@
 
 .profile_title {
     color: var(--text-black, #1C2A39);
-    font-family: Montserrat;
     font-size: 24px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
     text-transform: uppercase;
 }
 
@@ -21,10 +17,6 @@
 
 .info_title, .info_data {
     color: #000;
-    font-family: Montserrat;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
 }
 
 .info_title {
@@ -47,11 +39,7 @@
     border: 1px solid #4C3DB2;
 
     color: #4C3DB2;
-    font-family: Montserrat;
     font-size: 8px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
     text-transform: uppercase;
 }
 
@@ -82,12 +70,7 @@
     margin-top: 29px;
 
     color: #5C6A79;
-
-    font-family: Montserrat;
     font-size: 12px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
 
 }
 

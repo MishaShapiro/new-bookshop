@@ -5,7 +5,15 @@ import Theam from '../../components/Theam'
 import styles from "../styles/index.module.css"
 import Swiper from '../../components/Swiper/Swiper'
 import Slide from '../../components/Swiper/Slide'
-import { setServers } from 'dns'
+import { Montserrat } from 'next/font/google';
+import Image from 'next/image'
+import { useDispatch, useSelector } from 'react-redux'
+import { setCurTheam } from '@/redux/TheamSlice'
+
+const font700 = Montserrat({
+    weight: ["700"],
+    subsets: ["latin", "cyrillic"],
+})
 
 const theams = ["Architecture", "Art & Fashion", "Biography", "Business", "Crafts & Hobbies", "Drama", "Fiction", "Food & Drink", "Health & Wellbeing", "History & Politics", "Humor", "Poetry", "Psychology", "Science", "Technology", "Travel & Maps"]
 
@@ -22,7 +30,11 @@ interface BookType {
 
 export default function Home() {
 
-  const [theam, setTheam] = useState(theams[0])
+
+  const cur_theam = useSelector((state: any) => state.theam)
+  const dispatch = useDispatch()
+
+  const [theam, setTheam] = useState(cur_theam.theam)
   const [booksData, setBooksData] = useState([])
   const [booksCount, setBooksCount] = useState(6)
   const [reload, changeReload] = useState(true) // Небольшой костыль, который исправляет загрузку книг
@@ -72,6 +84,7 @@ export default function Home() {
       changeReload(!reload) // Так как изменение booksCount не перезагружает страницу, нам нужно запустить загрузку через reload
     }
     setBooksCount(6)
+    dispatch(setCurTheam({theam: theam}))
   }, [theam])
 
   useEffect(() => {
@@ -89,8 +102,8 @@ export default function Home() {
         <div className={styles.books}>
             <nav className={styles.books__nav}>
                 <ul className={styles.books__elements}>
-                    {theams.map((item) => {
-                        return <Theam onClick={() => {setTheam(item)}} text={item} active={item === theam}/>
+                    {theams.map((item, index) => {
+                        return <Theam onClick={() => {setTheam(item)}} text={item} active={item === theam} key={index}/>
                       })
                     }
                 </ul>
@@ -99,7 +112,7 @@ export default function Home() {
                 <div className={styles.books__container}>
                   {booksData.length ?
                   <>
-                    {booksData.map((item: any) => {
+                    {booksData.map((item: any, index) => {
                       const infodata = item.volumeInfo
 
                       let price = ""
@@ -140,17 +153,17 @@ export default function Home() {
                         authors = infodata.authors[0]
                       }
 
-                      return <Book id={item.id} title={title} description={description} imageLinks={thumbnail} authors={authors} averageRating={averageRating} ratingsCount={ratingsCount} price={price} priceCode={priceCode}/>
+                      return <Book id={item.id} title={title} description={description} imageLinks={thumbnail} authors={authors} averageRating={averageRating} ratingsCount={ratingsCount} price={price} priceCode={priceCode} key={index}/>
                     })}
                   </>
                     :
                     <div className={styles.loading}>
-                      <img src="/svg/Loading.svg" alt="Loadind" />
+                      <Image src={"/svg/Loading.svg"} alt={"Loadind"} width={300} height={300}/>
                     </div>
                   }
                 </div>
                 <div className={styles.newloader}>
-                    <button className={`${styles.newloader__btn} standartbtn`} onClick={addBooks}>Load more</button>
+                    <button className={`${styles.newloader__btn} standartbtn ${font700.className}`} onClick={addBooks}>Load more</button>
                 </div>
             </div>
         </div>

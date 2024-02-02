@@ -13,11 +13,7 @@
 
 .title {
     color: var(--text-black, #1C2A39);
-    font-family: Montserrat;
     font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
 }
 
 .rating {
@@ -25,13 +21,9 @@
     display: flex;
 }
 
-.author, .ratingcount {
+.author, .ratingsCount {
     color: var(--text-gray, #5C6A79);
-    font-family: Open Sans;
     font-size: 10px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
 }
 
 .author {

@@ -14,10 +14,6 @@
     margin-top: 20px;
 
     color: var(--text-gray, #5C6A79);
-    font-family: Montserrat;
     font-size: 10px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
     text-transform: uppercase;
 }

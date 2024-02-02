@@ -21,11 +21,7 @@
 
 .container__name {
     color: #1C2A39;
-    font-family: Montserrat;
     font-size: 24px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
 }
 
 .container__icons {
@@ -50,13 +46,9 @@
     display: none;
 }
 
-#icon_circle::after {
-    content: var(--bugcontent);
+#icon_circle_num {
     color: #fff;
-    font-family: Montserrat;
     font-size: 10px;
-    font-style: normal;
-    font-weight: 500;
     line-height: normal;
     text-transform: capitalize;
 
@@ -68,11 +60,11 @@
     display: block;
 }
 
-.icons_circle_1::after {
+.icon_circle_num1 {
     right: 5px;
 }
 
-.icons_circle_10::after {
+.icon_circle_num10 {
     right: 3px;
 }
 
@@ -93,11 +85,7 @@
 
 .links__link > a {
     color: var(--text-gray, #5C6A79);
-    font-family: Montserrat;
     font-size: 10px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
     text-transform: uppercase;
 
     text-decoration: none;
@@ -105,7 +93,6 @@
 
 .links__link_active > a {
     color: var(--text-black, #1C2A39);
-    font-weight: 900;
 }
 
 .links__link_active {
@@ -138,22 +125,14 @@
 
 .loginHeading {
     color: var(--text-black, #1C2A39);
-    font-family: Montserrat;
     font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
 }
 
 .loginText {
     width: 176px;
     color: #000;
 
-    font-family: Montserrat;
     font-size: 12px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
     text-transform: capitalize;
     margin-top: 15px;
 }
@@ -165,11 +144,7 @@
 
     color: #4C3DB2;
 
-    font-family: Montserrat;
     font-size: 12px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
     text-transform: lowercase;
 
     margin-top: 9px;
@@ -182,11 +157,7 @@
 
     color: #FF353A;
 
-    font-family: Montserrat;
     font-size: 8px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
 }
 
 .loginBtn {
@@ -196,11 +167,7 @@
     background: #9E98DC;
     color: #FFF;
 
-    font-family: Montserrat;
     font-size: 14px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
     text-transform: uppercase;
     transition: 0.5s ease-in-out;
 }
@@ -217,11 +184,7 @@
     background: #e7e8f6;
     color: #000;
 
-    font-family: Montserrat;
     font-size: 12px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
     text-transform: uppercase;
     transition: 0.5s ease-in-out;
 }
@@ -229,4 +192,8 @@
 .changeBtn:hover {
     cursor: pointer;
     background: #b7b9d6;
+}
+
+.disabled {
+    pointer-events: none;
 }

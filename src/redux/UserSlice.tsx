@@ -5,6 +5,7 @@ interface UserType {
     pass: string,
     name: string,
     info: string,
+    cart: any
 }
 
 interface StateType {
@@ -20,12 +21,24 @@ const userSlice = createSlice({
             pass: "",
             name: "",
             info: "",
+            cart: [{
+                id: "No Data",
+                count: 0,
+            }]
         },
         allUsers: [
             
         ]
     },
     reducers: {
+        setUserCart: (state : StateType, action) => {
+            state.allUsers.map((user) => {
+                if (user.mail === action.payload.mail) {
+                    user.cart = action.payload.cart
+                }
+            })
+            state.data.cart = action.payload.cart
+        },
         setUser: (state : StateType, action) => {
             const currentUser = state.allUsers.filter((user : UserType) => {
                 return (user.mail === action.payload.data.mail && user.pass === action.payload.data.pass)
@@ -44,6 +57,10 @@ const userSlice = createSlice({
                 pass: "",
                 name: "",
                 info: "",
+                cart: [{
+                    id: "No Data",
+                    count: 0,
+                }]
             }
         },
         upload: (state) => {
@@ -53,6 +70,10 @@ const userSlice = createSlice({
                     pass: "",
                     name: "",
                     info: "",
+                    cart: [{
+                        id: "No Data",
+                        count: 0,
+                    }]
                 },
                 allUsers: [
 
@@ -63,6 +84,6 @@ const userSlice = createSlice({
     }
 })
     
-export const { setUser, upload, quit, addUser, editAllUser } = userSlice.actions;
+export const { setUser, setUserCart, upload, quit, addUser, editAllUser } = userSlice.actions;
     
 export default userSlice;

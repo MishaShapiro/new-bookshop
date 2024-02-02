@@ -25,30 +25,18 @@
 
 .book__authors, .book__description {
     color: var(--text-gray, #5C6A79);
-    font-family: Open Sans;
     font-size: 10px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
     text-transform: capitalize;
 }
 
 .book__titles {
     color: var(--text-black, #1C2A39);
-    font-family: Montserrat;
     font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
 }
 
 .book__ratingcount {
     color: var(--text-gray, #5C6A79);
-    font-family: Open Sans;
     font-size: 10px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
 }
 
 .book__rating {
@@ -59,11 +47,7 @@
     margin: 16px 0px;
 
     color: var(--text-black, #1C2A39);
-    font-family: Montserrat;
     font-size: 13px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
     text-transform: uppercase;
 }
 
@@ -73,4 +57,10 @@
 
 .cartbtn:active {
     border: 1px solid #acaab5;
+}
+
+.disabled {
+    border: 1px solid #EEEDF5;
+    background-color: #acaab5;
+    pointer-events: none;
 }

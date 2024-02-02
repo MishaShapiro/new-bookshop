@@ -1,11 +1,7 @@
 .books__theam {
     margin: 15px 0px;
     color: var(--text-gray, #5C6A79);
-    font-family: Montserrat;
     font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
     text-transform: capitalize;
 
     list-style-type: none;

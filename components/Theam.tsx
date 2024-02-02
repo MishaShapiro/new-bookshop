@@ -1,4 +1,10 @@
 import styles from "./Theam.module.css"
+import { Montserrat } from 'next/font/google';
+
+const font700 = Montserrat({
+    weight: ["700"],
+    subsets: ["latin", "cyrillic"],
+})
 
 interface TheamType {
     text: string,
@@ -8,7 +14,7 @@ interface TheamType {
 
 function Theam({text="", active=false, onClick= () => {}} : TheamType) {
     return (
-        <li onClick={onClick} className={`${styles.books__theam} ${active ? styles.books__theam_active: ""}`}>{text}</li>
+        <li onClick={onClick} className={`${styles.books__theam} ${font700.className} ${active ? styles.books__theam_active: ""}`}>{text}</li>
     )
 }
 
